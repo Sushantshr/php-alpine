@@ -14,14 +14,15 @@ RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev lib
   docker-php-ext-configure gd \
     --with-gd \
     --with-freetype-dir=/usr/include/ \
+    --with-png-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ && \
   NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
   docker-php-ext-install -j${NPROC} gd && \
   apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev zlib-dev
 
 RUN apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
+    && pecl install imagick redis \
+    && docker-php-ext-enable imagick redis \
     && apk del autoconf g++ libtool make pcre-dev
 
 ADD php.ini /usr/local/etc/php/php.ini
