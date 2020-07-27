@@ -26,8 +26,6 @@ RUN apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-d
     && apk del autoconf g++ libtool make pcre-dev
 
 ADD php.ini /usr/local/etc/php/php.ini
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
     && chmod +x /usr/bin/composer
