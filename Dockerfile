@@ -25,11 +25,9 @@ RUN apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-d
     && docker-php-ext-enable imagick \
     && apk del autoconf g++ libtool make pcre-dev
 
-#ADD ./php.ini /usr/local/etc/php/php.ini
+ADD ./php.ini /usr/local/etc/php/php.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
     && chmod +x /usr/bin/composer
-
-RUN composer global require hirak/prestissimo
 
 WORKDIR /app
